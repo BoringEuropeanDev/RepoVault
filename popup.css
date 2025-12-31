@@ -1,0 +1,368 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 520px;
+  background: #0a0e27;
+  color: #e0e6ed;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.container {
+  padding: 16px;
+}
+
+/* Typography */
+h3 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  margin-bottom: 8px;
+}
+
+/* Tabs - Minimal */
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Fira Code', monospace;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.tab-btn:hover {
+  color: #cbd5e1;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.tab-btn.active {
+  color: #7dd3fc;
+  border-bottom-color: #7dd3fc;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Inputs */
+.search-box,
+.filter-box {
+  margin-bottom: 12px;
+}
+
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  color: #e0e6ed;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: 'Fira Code', monospace;
+  transition: all 0.2s ease;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: #475569;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #7dd3fc;
+  background: #0f172a;
+  box-shadow: 0 0 0 2px rgba(125, 211, 252, 0.1);
+}
+
+/* Bookmarks List */
+.bookmarks-list {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.bookmark-item {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.bookmark-item:hover {
+  border-color: #7dd3fc;
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.1);
+}
+
+.bookmark-title {
+  font-weight: 600;
+  color: #7dd3fc;
+  font-size: 12px;
+  margin-bottom: 6px;
+  word-break: break-all;
+}
+
+.bookmark-title a {
+  color: #7dd3fc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bookmark-title a:hover {
+  color: #38bdf8;
+}
+
+.bookmark-category {
+  display: inline-block;
+  background: rgba(125, 211, 252, 0.1);
+  color: #7dd3fc;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 500;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+
+.bookmark-notes {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 6px 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.bookmark-meta {
+  font-size: 10px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.bookmark-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.bookmark-actions button {
+  flex: 1;
+  padding: 4px 6px;
+  background: transparent;
+  border: 1px solid #1e293b;
+  color: #7dd3fc;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: 'Fira Code', monospace;
+  transition: all 0.2s;
+  letter-spacing: 0.2px;
+}
+
+.bookmark-actions button:hover {
+  border-color: #7dd3fc;
+  background: rgba(125, 211, 252, 0.05);
+}
+
+.bookmark-actions button.delete:hover {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.empty-state p {
+  line-height: 1.6;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #7dd3fc;
+  font-size: 11px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+  font-family: 'Fira Code', monospace;
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #1e293b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  font-family: 'Fira Code', monospace;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.btn-primary {
+  background: #7dd3fc;
+  color: #0a0e27;
+  border-color: #7dd3fc;
+}
+
+.btn-primary:hover {
+  background: #38bdf8;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(125, 211, 252, 0.1);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #7dd3fc;
+  border-color: #1e293b;
+}
+
+.btn-secondary:hover {
+  border-color: #7dd3fc;
+  background: rgba(125, 211, 252, 0.05);
+}
+
+.btn-danger {
+  background: #ff6b6b;
+  color: #0a0e27;
+  border-color: #ff6b6b;
+}
+
+.btn-danger:hover {
+  background: #ff5252;
+  border-color: #ff5252;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Status Messages */
+.status {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  display: none;
+  border: 1px solid;
+  letter-spacing: 0.2px;
+}
+
+.status.success {
+  display: block;
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.2);
+}
+
+.status.error {
+  display: block;
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.2);
+}
+
+/* Settings */
+.setting-item {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-item h3 {
+  margin-bottom: 8px;
+}
+
+/* Scrollbar - Custom */
+.bookmarks-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.bookmarks-list::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.bookmarks-list::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+
+.bookmarks-list::-webkit-scrollbar-thumb:hover {
+  background: #7dd3fc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+  }
+  
+  .tabs {
+    gap: 2px;
+  }
+  
+  .tab-btn {
+    font-size: 11px;
+  }
+}
