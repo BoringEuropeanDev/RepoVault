@@ -1,71 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RepoVault</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="popup.css">
-</head>
-<body>
-  <div class="container">
-    <!-- Tab Navigation -->
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="bookmarks">📚 Bookmarks</button>
-      <button class="tab-btn" data-tab="add">➕ Add Repo</button>
-      <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
-    </div>
-
-    <!-- Bookmarks Tab -->
-    <div id="bookmarks" class="tab-content active">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="search repos...">
-      </div>
-      <div class="filter-box">
-        <select id="categoryFilter">
-          <option value="">all categories</option>
-        </select>
-      </div>
-      <div id="bookmarksList" class="bookmarks-list"></div>
-      <div id="emptyState" class="empty-state">
-        <p>no bookmarks yet</p>
-        <p style="color: #475569; margin-top: 8px; font-size: 11px;">add your first repo to get started</p>
-      </div>
-    </div>
-
-    <!-- Add Repo Tab -->
-    <div id="add" class="tab-content">
-      <div class="form-group">
-        <label>GitHub Repo URL</label>
-        <input type="text" id="repoUrl" placeholder="https://github.com/username/repo">
-      </div>
-      <div class="form-group">
-        <label>Category</label>
-        <input type="text" id="repoCategory" placeholder="react, tools, learning...">
-      </div>
-      <div class="form-group">
-        <label>Notes (optional)</label>
-        <textarea id="repoNotes" placeholder="why you bookmarked this..."></textarea>
-      </div>
-      <button id="saveBtn" class="btn btn-primary">Save Bookmark</button>
-      <div id="status" class="status"></div>
-    </div>
-
-    <!-- Settings Tab -->
-    <div id="settings" class="tab-content">
-      <div class="setting-item">
-        <h3>Data Management</h3>
-        <button id="exportBtn" class="btn btn-secondary">📥 Export as JSON</button>
-        <button id="importBtn" class="btn btn-secondary">📤 Import JSON</button>
-        <input type="file" id="importFile" accept=".json" style="display: none;">
-      </div>
-      <div class="setting-item">
-        <h3>Danger Zone</h3>
-        <button id="clearBtn" class="btn btn-danger">🗑️ Clear All</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="popup.js"></script>
-</body>
-</html>
+{
+  "manifest_version": 3,
+  "name": "RepoVault",
+  "version": "1.0.0",
+  "description": "Bookmark GitHub repos. Organize by category. Never lose track again.",
+  "permissions": ["storage", "activeTab", "scripting", "clipboardWrite"],
+  "host_permissions": ["https://github.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
