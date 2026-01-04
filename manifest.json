@@ -2,23 +2,36 @@
   "manifest_version": 3,
   "name": "RepoVault",
   "version": "1.0.0",
-  "description": "Bookmark GitHub repos. Organize by category. Never lose track again.",
-  "permissions": ["storage", "activeTab", "scripting", "clipboardWrite"],
-  "host_permissions": ["https://github.com/*"],
+  "description": "Save and organize code snippets from GitHub repositories",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://github.com/*",
+    "https://raw.githubusercontent.com/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
+      "16": "images/icon-16.png",
+      "48": "images/icon-48.png",
+      "128": "images/icon-128.png"
     }
   },
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["content.js"]
+    }
+  ],
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "16": "images/icon-16.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
   }
 }
