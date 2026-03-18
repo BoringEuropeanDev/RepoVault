@@ -1,6 +1,5 @@
 Here is a completely overhauled, high-end `README.md` for **RepoVault Pro**. It uses a modern layout, clear feature highlights, and the requested "Buy Me a Coffee" and "Bedmakr" links.
 
-````markdown
 # 🛡️ RepoVault Pro
 
 ![Version](https://img.shields.io/badge/version-2.1.0-blue)
@@ -46,9 +45,9 @@ A lightning-fast search bar that filters through titles, descriptions, categorie
 ## 🚀 Installation
 
 1. **Download:** Clone this repository or download the ZIP.
-   ```bash
+   
    git clone [https://github.com/BoringEuropeanDev/RepoVault.git](https://github.com/BoringEuropeanDev/RepoVault.git)
-````
+
 
 2.  **Extensions Page:** Open Chrome and navigate to `chrome://extensions/`.
 3.  **Developer Mode:** Toggle the "Developer mode" switch in the top-right corner.
