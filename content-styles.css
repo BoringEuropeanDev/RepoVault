@@ -1,0 +1,92 @@
+/* content-styles.css - Inject this via content.js or include in manifest */
+
+.repovault-btn-wrapper {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  margin: 0 4px;
+  position: relative;
+}
+
+#repovault-save-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+#repovault-save-btn:hover:not(:disabled) {
+  background-color: #2ea043 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3);
+}
+
+#repovault-save-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+#repovault-save-btn:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.repovault-toast {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: #238636;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.repovault-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.repovault-toast.error {
+  background: #da3633;
+}
+
+.repovault-toast.warning {
+  background: #d29922;
+}
+
+/* Ensure button fits GitHub's dark theme */
+[data-color-mode="dark"] #repovault-save-btn,
+[data-dark-theme="dark"] #repovault-save-btn {
+  background-color: #238636;
+  color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .repovault-btn-wrapper {
+    margin: 4px 0;
+  }
+  
+  #repovault-save-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Animation for save success */
+@keyframes savePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+#repovault-save-btn.saved {
+  animation: savePulse 0.3s ease;
+}
