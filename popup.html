@@ -4,64 +4,131 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RepoVault</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="container">
+    <!-- Header Stats -->
+    <div class="header-stats">
+      <div class="stat-item">
+        <span class="stat-value" id="totalBookmarks">0</span>
+        <span class="stat-label">Repos</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="totalCategories">0</span>
+        <span class="stat-label">Categories</span>
+      </div>
+      <div class="stat-item health-stat" id="healthStat">
+        <span class="stat-value" id="healthIssues">0</span>
+        <span class="stat-label">Alerts</span>
+      </div>
+    </div>
+
     <!-- Tab Navigation -->
     <div class="tabs">
-      <button class="tab-btn active" data-tab="bookmarks">📚 Bookmarks</button>
-      <button class="tab-btn" data-tab="add">➕ Add Repo</button>
-      <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+      <button class="tab-btn active" data-tab="bookmarks">📚 Library</button>
+      <button class="tab-btn" data-tab="add">➕ Quick Add</button>
+      <button class="tab-btn" data-tab="settings">⚙️ Sync</button>
     </div>
 
     <!-- Bookmarks Tab -->
     <div id="bookmarks" class="tab-content active">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="search repos...">
+      <div class="search-filter-row">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search repos, descriptions...">
+          <span class="search-icon">🔍</span>
+        </div>
+        <div class="filter-box">
+          <select id="categoryFilter">
+            <option value="">All Categories</option>
+          </select>
+        </div>
       </div>
-      <div class="filter-box">
-        <select id="categoryFilter">
-          <option value="">all categories</option>
+      
+      <div class="sort-controls">
+        <select id="sortBy">
+          <option value="newest">Newest First</option>
+          <option value="stars">Most Stars</option>
+          <option value="name">Name A-Z</option>
+          <option value="health">Health Status</option>
         </select>
+        <button id="refreshHealth" class="icon-btn" title="Refresh Health Status">🔄</button>
       </div>
+
       <div id="bookmarksList" class="bookmarks-list"></div>
+      
       <div id="emptyState" class="empty-state">
-        <p>no bookmarks yet</p>
-        <p style="color: #475569; margin-top: 8px; font-size: 11px;">add your first repo to get started</p>
+        <div class="empty-icon">📭</div>
+        <p>No repositories saved yet</p>
+        <p class="empty-sub">Visit any GitHub repo and click the "Vault" button, or use the Quick Add tab</p>
       </div>
     </div>
 
     <!-- Add Repo Tab -->
     <div id="add" class="tab-content">
       <div class="form-group">
-        <label>GitHub Repo URL</label>
+        <label>GitHub Repository URL</label>
         <input type="text" id="repoUrl" placeholder="https://github.com/username/repo">
+        <span class="input-hint">Or just owner/repo format</span>
       </div>
+      
+      <div class="metadata-preview" id="metadataPreview" style="display: none;">
+        <div class="preview-header">
+          <span class="preview-badge" id="previewLanguage">-</span>
+          <span class="preview-stars" id="previewStars">⭐ 0</span>
+        </div>
+        <p class="preview-desc" id="previewDesc">No description available</p>
+        <div class="preview-topics" id="previewTopics"></div>
+      </div>
+
       <div class="form-group">
-        <label>Category</label>
-        <input type="text" id="repoCategory" placeholder="react, tools, learning...">
+        <label>Category <span class="auto-badge" id="autoCategory">auto</span></label>
+        <input type="text" id="repoCategory" placeholder="react, tools, backend...">
       </div>
+      
       <div class="form-group">
-        <label>Notes (optional)</label>
-        <textarea id="repoNotes" placeholder="why you bookmarked this..."></textarea>
+        <label>Notes</label>
+        <textarea id="repoNotes" placeholder="Why is this repo important? Key features..."></textarea>
       </div>
-      <button id="saveBtn" class="btn btn-primary">Save Bookmark</button>
+
+      <div class="form-actions">
+        <button id="fetchMetadata" class="btn btn-secondary">🔍 Preview Metadata</button>
+        <button id="saveBtn" class="btn btn-primary">💾 Save to Vault</button>
+      </div>
+      
       <div id="status" class="status"></div>
     </div>
 
     <!-- Settings Tab -->
     <div id="settings" class="tab-content">
+      <div class="sync-status" id="syncStatus">
+        <div class="sync-indicator active"></div>
+        <span>Sync enabled across devices</span>
+      </div>
+
       <div class="setting-item">
         <h3>Data Management</h3>
-        <button id="exportBtn" class="btn btn-secondary">📥 Export as JSON</button>
+        <p class="setting-desc">Export your vault or import from backup</p>
+        <button id="exportBtn" class="btn btn-secondary">📥 Export JSON</button>
         <button id="importBtn" class="btn btn-secondary">📤 Import JSON</button>
         <input type="file" id="importFile" accept=".json" style="display: none;">
       </div>
-      <div class="setting-item">
-        <h3>Danger Zone</h3>
-        <button id="clearBtn" class="btn btn-danger">🗑️ Clear All</button>
+
+      <div class="storage-info">
+        <div class="storage-bar">
+          <div class="storage-used" id="storageUsed" style="width: 0%"></div>
+        </div>
+        <span class="storage-text" id="storageText">0 KB / 100 KB used</span>
+      </div>
+
+      <div class="setting-item danger-zone">
+        <h3>⚠️ Danger Zone</h3>
+        <button id="clearBtn" class="btn btn-danger">🗑️ Clear All Data</button>
+      </div>
+
+      <div class="version-info">
+        RepoVault v2.0.0 • Privacy First • Zero Dependencies
       </div>
     </div>
   </div>
