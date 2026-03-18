@@ -610,4 +610,71 @@ async function importBookmarks(e) {
       updateCategoryFilter();
       updateStats();
       checkHealthIssues();
-      show
+      showStatus(`Imported ${newBookmarks.length} repositories!`, 'success');
+    } catch (err) {
+      showStatus('Invalid file format', 'error');
+    }
+  };
+
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+// ========== CLEAR ALL ==========
+async function clearAll() {
+  if (!confirm('⚠️ Delete ALL bookmarks?\n\nThis will permanently remove ${bookmarks.length} repositories from your vault. This action cannot be undone.')) {
+    return;
+  }
+
+  // Double confirmation for large vaults
+  if (bookmarks.length > 10) {
+    if (!confirm(`You have ${bookmarks.length} repositories saved.\n\nType "DELETE" to confirm total deletion:`)) {
+      return;
+    }
+  }
+
+  bookmarks = [];
+  await saveBookmarks();
+  renderBookmarks();
+  updateCategoryFilter();
+  updateStats();
+  checkHealthIssues();
+  showStatus('Vault cleared', 'success');
+}
+
+// ========== STATUS MESSAGES ==========
+function showStatus(msg, type) {
+  const status = document.getElementById('status');
+  status.textContent = msg;
+  status.className = `status ${type}`;
+
+  // Auto-hide after 4 seconds for success/info
+  if (type !== 'error') {
+    setTimeout(() => {
+      status.className = 'status';
+    }, 4000);
+  }
+}
+
+// ========== UTILITIES ==========
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Add spin animation for refresh button
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+`;
+document.head.appendChild(style);
