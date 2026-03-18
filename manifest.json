@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "RepoVault",
-  "version": "2.0.0",
+  "name": "RepoVault Pro",
+  "version": "2.1.0",
   "description": "Save and organize GitHub repositories with smart metadata, health checks, and cross-device sync",
   "permissions": [
     "storage",
@@ -16,11 +16,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": {
-      "16": "images/icon-16.png",
-      "48": "images/icon-48.png",
-      "128": "images/icon-128.png"
-    }
+    "default_icon": "icons/icon.svg"
   },
   "background": {
     "service_worker": "background.js"
@@ -36,8 +32,8 @@
     "keyword": "vault"
   },
   "icons": {
-    "16": "images/icon-16.png",
-    "48": "images/icon-48.png",
-    "128": "images/icon-128.png"
+    "16": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "128": "icons/icon.svg"
   }
 }
