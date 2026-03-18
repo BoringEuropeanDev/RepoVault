@@ -371,4 +371,32 @@
     
     observer = new MutationObserver((mutations) => {
       const btn = document.querySelector('.repovault-btn-wrapper');
-      if (!btn && isRepo
+      if (!btn && isRepoPage()) {
+        injectVaultButton();
+      }
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // Listen for navigation changes (GitHub SPA navigation)
+  let lastUrl = location.href;
+  new MutationObserver(() => {
+    const url = location.href;
+    if (url !== lastUrl) {
+      lastUrl = url;
+      retryCount = 0;
+      setTimeout(init, 100);
+    }
+  }).observe(document, { subtree: true, childList: true });
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
