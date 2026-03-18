@@ -1,15 +1,17 @@
 {
   "manifest_version": 3,
   "name": "RepoVault",
-  "version": "1.0.0",
-  "description": "Save and organize code snippets from GitHub repositories",
+  "version": "2.0.0",
+  "description": "Save and organize GitHub repositories with smart metadata, health checks, and cross-device sync",
   "permissions": [
     "storage",
     "activeTab",
-    "tabs"
+    "tabs",
+    "scripting"
   ],
   "host_permissions": [
     "https://github.com/*",
+    "https://api.github.com/*",
     "https://raw.githubusercontent.com/*"
   ],
   "action": {
@@ -26,9 +28,13 @@
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "run_at": "document_end"
     }
   ],
+  "omnibox": {
+    "keyword": "vault"
+  },
   "icons": {
     "16": "images/icon-16.png",
     "48": "images/icon-48.png",
